@@ -1,5 +1,5 @@
 <?php
-	$link = mysql_connect('freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com', 'freekibble', 'freekibbleclick');
+	$link = mysqli_connect("freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com", "freekibble", "freekibbleclick", "freekibble");
 	if (!$link) {
     	die('Could not connect: ' . mysql_error());
 	}	
@@ -10,12 +10,12 @@
 	$sql .= "where month(`day`) = month(NOW()) and year(`day`) = year(NOW()) ";
 	$sql .= "group by day(`day`), site_id,plus ";
 	$sql .= "order by day(`day`), site_id ";
-	$result = mysql_query($sql);
+	$result = $link->query($sql);
 	$current = "";
 	$ctr = 1;
 	$jsonstr = "";
 	$tot_plus = 0;
-	while($row = mysql_fetch_array($result)){
+	while($row = $result->fetch_array()){
 		if($row["year_date"] != $current){
 			if($ctr != 1){
 				$jsonstr = rtrim($jsonstr, ",");
