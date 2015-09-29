@@ -1,12 +1,15 @@
 <?php
 	$link = mysqli_connect("localhost", "freekibble", "freekibbleclick", "freekibble");
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
 
 	$sql = "select plus,day(`day`) as year_date,site_id, sum(clicks) as total_clicks, sum(value) as total_sum, sum(correct) as total_correct ";
 	$sql .= "from clicks_total_day ";
 	$sql .= "where month(`day`) = month(NOW()) and year(`day`) = year(NOW()) ";
 	$sql .= "group by day(`day`), site_id,plus ";
 	$sql .= "order by day(`day`), site_id ";
-echo $sql;
 	$result = $link->query($sql);
 	$current = "";
 	$ctr = 1;
