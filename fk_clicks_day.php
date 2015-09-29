@@ -6,12 +6,12 @@
 	$sql .= "where month(`day`) = month(NOW()) and year(`day`) = year(NOW()) ";
 	$sql .= "group by day(`day`), site_id,plus ";
 	$sql .= "order by day(`day`), site_id ";
+echo $sql;
 	$result = $link->query($sql);
 	$current = "";
 	$ctr = 1;
 	$jsonstr = "";
 	$tot_plus = 0;
-	echo "HERE";
 	while($row = $result->fetch_array()){
 		if($row["year_date"] != $current){
 			if($ctr != 1){
