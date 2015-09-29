@@ -1,5 +1,5 @@
 <?php
-	$link = mysql_connect('localhost', 'freekibble', 'freekibbleclick');
+	$link = mysql_connect('freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com', 'freekibble', 'freekibbleclick');
 	if (!$link) {
     	die('Could not connect: ' . mysql_error());
 	}	
