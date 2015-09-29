@@ -1,8 +1,5 @@
 <?php
 	$link = mysqli_connect("localhost", "freekibble", "freekibbleclick", "freekibble");
-	if (!$link) {
-    	die('Could not connect: ' . mysqli_error_list($link));
-	}	
 
 	$sql = "select plus,day(`day`) as year_date,site_id, sum(clicks) as total_clicks, sum(value) as total_sum, sum(correct) as total_correct ";
 	$sql .= "from clicks_total_day ";
