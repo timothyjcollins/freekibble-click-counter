@@ -1,5 +1,5 @@
 <?php
-	$link = mysqli_connect("freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com:3306", "freekibble", "freekibbleclick", "freekibble");
+	$link = mysqli_connect("freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com", "freekibble", "freekibbleclick", "freekibble");
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
