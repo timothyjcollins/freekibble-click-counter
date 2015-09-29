@@ -14,6 +14,7 @@
 	$ctr = 1;
 	$jsonstr = "";
 	$tot_plus = 0;
+	echo "HERE";
 	while($row = $result->fetch_array()){
 		if($row["year_date"] != $current){
 			if($ctr != 1){
