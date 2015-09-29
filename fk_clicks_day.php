@@ -1,7 +1,7 @@
 <?php
 	$link = mysqli_connect("freekibble-click-counter.clltdiskvizr.us-west-2.rds.amazonaws.com", "freekibble", "freekibbleclick", "freekibble");
 	if (!$link) {
-    	die('Could not connect: ' . mysql_error());
+    	die('Could not connect: ' . mysqli_error_list($link));
 	}	
 
 	$sql = "select plus,day(`day`) as year_date,site_id, sum(clicks) as total_clicks, sum(value) as total_sum, sum(correct) as total_correct ";
