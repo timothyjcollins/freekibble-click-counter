@@ -1,9 +1,5 @@
 <?php
-	$link = mysql_connect('localhost', 'freekibble', 'freekibbleclick');
-	if (!$link) {
-    	die('Could not connect: ' . mysql_error());
-	}	
-    mysql_select_db('opencart');
+	$link = mysqli_connect("freekibble-click-counter-db.clltdiskvizr.us-west-2.rds.amazonaws.com", "freekibble", "freekibbleclick","freekibble");
 
 	$date = $_REQUEST["date"];
 	$site_id = $_REQUEST["site_id"];
@@ -12,9 +8,9 @@
 	$value = $_REQUEST["value"];
 	
 	$sql = "update clicks_total_day set clicks = " . $clicks . ", value = " . $value . " where site_id = '" . $site_id . "' and date(`day`) = '" . $date . "' and plus = '" . $plus . "'";
-	mysql_query($sql);
+	$link->query($sql);
 	$sql = "select clicks from clicks_total_day where site_id = '" . $site_id . "' and date(`day`) = '" . $date . "' and plus = '" . $plus . "'";
-	$result = mysql_query($sql);
-	$row = mysql_fetch_array($result);
+	$result = $link->query($sql);
+	$row = $result->fetch_array($result);
 	echo '{"RETURN" : "UPDATE COMPLETE - ' . $row["clicks"] . '"}';
 ?>

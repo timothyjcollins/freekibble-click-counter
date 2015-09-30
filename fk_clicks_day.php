@@ -6,7 +6,6 @@
 	$sql .= "where month(`day`) = month(NOW()) and year(`day`) = year(NOW()) ";
 	$sql .= "group by day(`day`), site_id,plus ";
 	$sql .= "order by day(`day`), site_id ";
-	echo $sql;
 	$result = $link->query($sql);
 	$current = "";
 	$ctr = 1;

@@ -1,16 +1,12 @@
 <?php
-	$link = mysql_connect('localhost', 'freekibble', 'freekibbleclick');
-	if (!$link) {
-    	die('Could not connect: ' . mysql_error());
-	}	
-    mysql_select_db('opencart');
+	$link = mysqli_connect("freekibble-click-counter-db.clltdiskvizr.us-west-2.rds.amazonaws.com", "freekibble", "freekibbleclick","freekibble");
 
 	$sql = "select plus,year(`day`) as year_date,site_id, sum(clicks) as total_clicks, sum(value) as total_sum, sum(correct) as total_correct ";
 	$sql .= "from clicks_total_day ";
 	$sql .= "where not year(`day`) = year(NOW()) ";
 	$sql .= "group by year(`day`), site_id,plus ";
 	$sql .= "order by year(`day`), site_id ";
-	$result = mysql_query($sql);
+	$result = $link->query($sql);
 	$current = "";
 	$ctr = 1;
 	$jsonstr = "";
