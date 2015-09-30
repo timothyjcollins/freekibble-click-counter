@@ -11,7 +11,7 @@
 	$ctr = 1;
 	$jsonstr = "";
 	$tot_plus = 0;
-	while($row = $result->fetch_array($result)){
+	while($row = $result->fetch_array()){
 		if($row["year_date"] != $current){
 			if($ctr != 1){
 				$jsonstr = rtrim($jsonstr, ",");
