@@ -32,7 +32,7 @@
 			$link->query($sql);
 			$sql = "select count(id) as cnt from clicks_total where site_id = '" . $site_id . "'";
 			$result = $link->query($sql);
-			$row = $result->fetch_array($result);
+			$row = $result->fetch_array();
 			if($row["cnt"] == 0){
 				$link->query("insert into clicks_total (site_id,total,total_value) values ('" . $site_id . "',1," . $value . ")");	
 			}else{
@@ -41,7 +41,7 @@
 			}
 			$sql = "select id, count(id) as cnt from clicks_total_day where day = DATE(NOW()) and plus= '" . $_REQUEST["plus"] . "' and site_id = '" . $site_id . "'";
 			$result_total = $link->query($sql);
-			$row_total = $result_total->fetch_array($result_total);
+			$row_total = $result_total->fetch_array();
 			if($row_total["cnt"] == 0){
 				$sql = "insert into clicks_total_day (site_id, day,clicks,`value`,correct,incorrect,plus) values ('" . $site_id . "', DATE(NOW()),0,0,0,0,'" . $_REQUEST["plus"] . "')";
 				$link->query($sql);
@@ -69,7 +69,7 @@
 			
 			$sql = "select count(id) as cnt from clicks_per_user where site_id = " . $site_id . " and user_id = " . $user_id;
 			$result = $link->query($sql);
-			$row = $result->fetch_array($result);
+			$row = $result->fetch_array();
 			if($row["cnt"] == 0){
 				$sql = "insert into clicks_per_user (user_id,clicks,site_id,correct) values (" . $user_id . ",1," . $site_id . ",0)";
 				$link->query($sql);	
@@ -85,11 +85,11 @@
 		}
 		$sql = "select sum(clicks) as clicks, sum(value) as value,sum(correct) as correct from clicks_total_day where site_id = '". $site_id . "'";
 		$result = $link->query($sql);
-		$row = $result->fetch_array($result);
+		$row = $result->fetch_array();
 
 		$sql = "select sum(clicks) as clicks, sum(value) as value,sum(correct) as correct from clicks_total_day where day = DATE(NOW()) and site_id = '". $site_id . "'";
 		$result_today = $link->query($sql);
-		$row_today = $result_today->fetch_array($result_today);
+		$row_today = $result_today->fetch_array();
 
 		echo '[';
 		echo '{"CLICKCOUNT" : "' . $row["clicks"] . '","CLICKVALUE" : "' . $row["value"] . '","CLICKCORRECT" : "' . $row["correct"] . '",';
@@ -101,7 +101,7 @@
 		$sql = "select * from clicks_total";
 		$result = $link->query($sql);
 		$json =  "[";
-		while($row = $result->fetch_array($result)){
+		while($row = $result->fetch_array()){
 			$json .=  '{"SITE_ID" : "' . $row["site_id"] . '",';	
 			$json .=  '"TOTAL_CLICKS" : "' . $row["total"] . '"},';	
 		}	
@@ -113,7 +113,7 @@
 		$sql = "select site_id,`day`,sum(clicks) as clicks,sum(`value`) as `value`,sum(correct) as correct,sum(incorrect) as incorrect from clicks_total_day where `day` between '" . $_GET["start"] . "' and '" . $_GET["end"] . "'";
 		$result = $link->query($sql);
 		$json =  "[";
-		while($row = $result->fetch_array($result)){
+		while($row = $result->fetch_array()){
 			$json .=  '{"SITE_ID" : "' . $row["site_id"] . '",';	
 			$json .=  '"TIMESTAMP" : "' . $row["day"] . '",';	
 			$json .=  '"CLICKS" : "' . $row["clicks"] . '",';	
@@ -129,7 +129,7 @@
 		$sql = "select * from clicks where timestamp between '" . $_GET["start"] . "' and '" . $_GET["end"] . "' and user_id = '" . $_GET["user_id"] . "'";
 		$result = $link->query($sql);
 		$json =  "[";
-		while($row = $result->fetch_array($result)){
+		while($row = $result->fetch_array()){
 			$json .=  '{"SITE_ID" : "' . $row["site_id"] . '",';	
 			$json .=  '"USER_ID" : "' . $row["user_id"] . '",';	
 			$json .=  '"USER_IP" : "' . $row["user_ip"] . '",';	
@@ -160,7 +160,7 @@
 		}
 		$result = $link->query($sql);
 		$json =  "[";
-		while($row = $result->fetch_array($result)){
+		while($row = $result->fetch_array()){
 			$json .=  '{"SITE_ID" : "' . $row["site_id"] . '",';	
 			$json .=  '"DATE" : "' . $row["date_total"] . '",';	
 			$json .=  '"TOTAL_CLICKS" : "' . $row["total_clicks"] . '",';	
@@ -178,7 +178,7 @@
 			$sql .= " and plus = 'YES'";	
 		}
 		$result = $link->query($sql);
-		$row = $result->fetch_array($result);
+		$row = $result->fetch_array();
 		echo '[{"CLICKCOUNT" : "' . $row["clicks"] . '", "CLICKVALUE" : "' . $row["value"] . '"}]';
 	}		
 	if($_REQUEST["pa"] == "REPORT_ALL_TIME_SITE_TOTAL_USER"){
@@ -187,7 +187,7 @@
 		$userid = $_REQUEST["user_id"];
 		$sql = "select * from clicks_per_user where site_id = " . $site_id . " and user_id = " . $userid;
 		$result = $link->query($sql);
-		$row = $result->fetch_array($result);
+		$row = $result->fetch_array();
 		$click_percent = ($row["correct"]/$row["clicks"]) * 100;
 		echo '[{';
 		echo '"CLICKCOUNT" : "' . $row["clicks"] . '",';
@@ -201,7 +201,7 @@
 		$sql = "select sum(click_value) as click_value from clicks_total where plus_member = 'YES' and site_id = '". $site_id . "'";
 		$result = $link->query($sql);
 		echo "[";
-		while($row = $result->fetch_array($result)){
+		while($row = $result->fetch_array()){
 			echo '{"CLICKCOUNT" : "' . $row["total"] . '"}';
 		}
 		echo "]";
